@@ -1,4 +1,3 @@
-
 export class MemoryBlock {
   size: number;
   free: boolean;
@@ -141,10 +140,10 @@ export class MemoryManager {
     this.memory[idx].free = false;
     this.memory[idx].pid = pid;
     
-    // Update next fit pointer for subsequent allocations
-    if (type === "next") {
-      this.nextFitIndex = (idx + 1) % this.memory.length;
-    }
+    // Always update next fit pointer after any allocation
+    // This ensures nextFitIndex changes after all types of allocation
+    this.nextFitIndex = (idx + 1) % this.memory.length;
+    
     return true;
   }
 
